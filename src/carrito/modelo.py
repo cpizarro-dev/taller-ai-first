@@ -1,0 +1,22 @@
+"""Los objetos del pedido."""
+
+from dataclasses import dataclass, field
+
+
+@dataclass(frozen=True)
+class Producto:
+    sku: str
+    nombre: str
+    precio: int
+
+
+@dataclass
+class Linea:
+    producto: Producto
+    cantidad: int
+
+
+@dataclass
+class Pedido:
+    numero: int
+    lineas: list[Linea] = field(default_factory=list)
