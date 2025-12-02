@@ -1,0 +1,11 @@
+{
+  "productos": [
+    {"sku": "TAZA-01", "nombre": "Taza de greda", "precio": 8990},
+    {"sku": "LIBR-02", "nombre": "Cuaderno cosido", "precio": 12500},
+    {"sku": "LANA-03", "nombre": "Chal de lana", "precio": 34900}
+  ],
+  "pedidos": [
+    {"numero": 41, "lineas": [{"sku": "TAZA-01", "cantidad": 2}]},
+    {"numero": 42, "lineas": [{"sku": "LIBR-02", "cantidad": 1}, {"sku": "LANA-03", "cantidad": 1}]}
+  ]
+}
