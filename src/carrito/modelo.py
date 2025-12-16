@@ -20,3 +20,4 @@ class Linea:
 class Pedido:
     numero: int
     lineas: list[Linea] = field(default_factory=list)
+    region: str = "metropolitana"
