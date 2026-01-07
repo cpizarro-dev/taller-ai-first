@@ -16,8 +16,15 @@ class Linea:
     cantidad: int
 
 
+@dataclass(frozen=True)
+class Cupon:
+    codigo: str
+    valor: int
+
+
 @dataclass
 class Pedido:
     numero: int
     lineas: list[Linea] = field(default_factory=list)
     region: str = "metropolitana"
+    cupones: list[Cupon] = field(default_factory=list)
