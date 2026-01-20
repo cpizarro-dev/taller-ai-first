@@ -19,6 +19,7 @@ class Linea:
 @dataclass(frozen=True)
 class Cupon:
     codigo: str
+    tipo: str
     valor: int
 
 

@@ -6,11 +6,17 @@ from carrito.precios import subtotal
 
 
 def aplicar_cupon(monto: int, cupon: Cupon) -> int:
-    return monto - porcentaje(monto, cupon.valor)
+    if cupon.tipo == "porcentaje":
+        return monto - porcentaje(monto, cupon.valor)
+    if cupon.tipo == "monto":
+        return max(0, monto - cupon.valor)
+    raise ValueError(f"Tipo de cupón desconocido: {cupon.tipo}")
 
 
 def total_con_descuentos(pedido) -> int:
     monto = subtotal(pedido)
-    for cupon in pedido.cupones:
+    fijos = [c for c in pedido.cupones if c.tipo == "monto"]
+    porcentuales = [c for c in pedido.cupones if c.tipo == "porcentaje"]
+    for cupon in fijos + porcentuales:
         monto = aplicar_cupon(monto, cupon)
     return monto
