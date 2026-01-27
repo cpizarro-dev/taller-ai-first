@@ -1,4 +1,9 @@
-"""Descuentos del pedido."""
+"""Descuentos del pedido.
+
+La política comercial fija el orden en que se aplican: primero los descuentos
+porcentuales, y sobre el monto que queda, los vales de monto fijo. El orden
+solo se nota cuando el pedido trae más de un descuento, pero cambia el total.
+"""
 
 from carrito.dinero import porcentaje
 from carrito.modelo import Cupon

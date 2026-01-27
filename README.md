@@ -1,5 +1,21 @@
 # carrito
 
-Cálculo del total de un pedido.
+Cálculo del total de un pedido: precios, descuentos, impuesto y envío.
 
-Se instala con `uv sync` y se usa como librería.
+```sh
+uv sync
+uv run python -m carrito total --pedido 42
+```
+
+## Cómo se arma el total
+
+1. **Subtotal** — la suma de las líneas.
+2. **Descuentos** — primero los cupones porcentuales, después los vales de monto
+   fijo. El orden importa cuando hay más de uno.
+3. **IVA** — 19% sobre el monto ya descontado.
+4. **Envío** — según la región, gratis sobre los $50.000.
+
+## Reportes
+
+Para sacar el resumen en CSV se usa `carrito.exportar.a_csv()`, que es lo que
+consume el sistema de reportes.
