@@ -24,4 +24,4 @@ def total_con_descuentos(pedido) -> int:
     porcentuales = [c for c in pedido.cupones if c.tipo == "porcentaje"]
     for cupon in fijos + porcentuales:
         monto = aplicar_cupon(monto, cupon)
-    return monto
+    return max(0, monto)
