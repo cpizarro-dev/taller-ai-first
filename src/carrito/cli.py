@@ -12,7 +12,7 @@ def main():
     parser.add_argument("--pedido", type=int, required=True)
     args = parser.parse_args()
 
-    for etiqueta, monto in resumen(pedido(args.pedido)):
+    for etiqueta, monto in resumen(pedido(args.pedido)).items():
         print(etiqueta, monto)
 
 
