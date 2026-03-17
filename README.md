@@ -19,3 +19,10 @@ uv run python -m carrito total --pedido 42
 
 Para sacar el resumen en CSV se usa `carrito.exportar.a_csv()`, que es lo que
 consume el sistema de reportes.
+
+## Próximos pasos
+
+- Los pedidos se van a mover de `datos/ejemplo.json` a **Postgres**; el módulo
+  `carrito.datos` va a hablar con la base a través de SQLAlchemy.
+- La **API REST** reemplaza al CLI. El CLI queda como herramienta de depuración.
+- El catálogo de productos pasa a un servicio aparte y se consulta por HTTP.
