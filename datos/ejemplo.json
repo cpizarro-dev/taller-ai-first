@@ -6,6 +6,7 @@
   ],
   "pedidos": [
     {"numero": 41, "lineas": [{"sku": "TAZA-01", "cantidad": 2}]},
-    {"numero": 42, "lineas": [{"sku": "LIBR-02", "cantidad": 1}, {"sku": "LANA-03", "cantidad": 1}]}
+    {"numero": 42, "lineas": [{"sku": "LIBR-02", "cantidad": 1}, {"sku": "LANA-03", "cantidad": 1}]},
+    {"numero": 43, "lineas": [{"sku": "TAZA-01", "cantidad": 4}], "promociones": ["2x1"]}
   ]
 }

@@ -29,3 +29,4 @@ class Pedido:
     lineas: list[Linea] = field(default_factory=list)
     region: str = "metropolitana"
     cupones: list[Cupon] = field(default_factory=list)
+    promociones: list[str] = field(default_factory=list)

@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from carrito.modelo import Linea, Pedido, Producto
+from carrito.modelo import Cupon, Linea, Pedido, Producto
 
 ARCHIVO = Path(__file__).resolve().parents[2] / "datos" / "ejemplo.json"
 
@@ -14,7 +14,13 @@ def cargar():
     pedidos = {}
     for crudo in contenido["pedidos"]:
         lineas = [Linea(productos[l["sku"]], l["cantidad"]) for l in crudo["lineas"]]
-        pedidos[crudo["numero"]] = Pedido(numero=crudo["numero"], lineas=lineas)
+        pedidos[crudo["numero"]] = Pedido(
+            numero=crudo["numero"],
+            lineas=lineas,
+            region=crudo.get("region", "metropolitana"),
+            cupones=[Cupon(**c) for c in crudo.get("cupones", [])],
+            promociones=crudo.get("promociones", []),
+        )
     return pedidos
 
 

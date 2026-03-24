@@ -1,9 +1,14 @@
 """El resumen del pedido, desglosado."""
 
-from carrito.descuentos import total_con_descuentos
+from carrito.descuentos import PROMOCIONES, total_con_descuentos
 from carrito.envio import costo_envio
 from carrito.impuestos import iva
 from carrito.precios import subtotal
+
+
+ETIQUETAS = {
+    "2x1": "Promoción 2x1",
+}
 
 
 def resumen(pedido) -> dict[str, int]:
