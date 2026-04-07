@@ -13,7 +13,14 @@ TRAMOS = {
 UMBRAL_ENVIO_GRATIS = 50000
 
 
+def free_shipping_for_new_customer(order) -> bool:
+    """Los clientes nuevos no pagan envío en su primera compra."""
+    return order.cliente_nuevo
+
+
 def costo_envio(pedido, monto: int) -> int:
+    if free_shipping_for_new_customer(pedido):
+        return 0
     if monto >= UMBRAL_ENVIO_GRATIS:
         return 0
     return TRAMOS.get(pedido.region, TRAMOS["regiones"])

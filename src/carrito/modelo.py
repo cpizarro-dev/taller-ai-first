@@ -30,3 +30,4 @@ class Pedido:
     region: str = "metropolitana"
     cupones: list[Cupon] = field(default_factory=list)
     promociones: list[str] = field(default_factory=list)
+    cliente_nuevo: bool = False

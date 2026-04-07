@@ -20,6 +20,7 @@ def cargar():
             region=crudo.get("region", "metropolitana"),
             cupones=[Cupon(**c) for c in crudo.get("cupones", [])],
             promociones=crudo.get("promociones", []),
+            cliente_nuevo=crudo.get("cliente_nuevo", False),
         )
     return pedidos
 
