@@ -25,8 +25,17 @@ def promo_2x1(pedido, monto: int) -> int:
     )
 
 
+def volume_discount(order, amount: int) -> int:
+    """5% adicional cuando el pedido lleva 10 unidades o más."""
+    units = sum(line.cantidad for line in order.lineas)
+    if units < 10:
+        return 0
+    return porcentaje(amount, 5)
+
+
 PROMOCIONES = {
     "2x1": promo_2x1,
+    "volumen": volume_discount,
 }
 
 
