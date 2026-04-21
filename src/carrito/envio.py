@@ -7,7 +7,7 @@ que el cliente efectivamente paga por los productos.
 TRAMOS = {
     "metropolitana": 3990,
     "regiones": 5990,
-    "extremo": 9990,
+    "extremo": 12990,
 }
 
 UMBRAL_ENVIO_GRATIS = 50000
