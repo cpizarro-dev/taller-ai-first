@@ -62,6 +62,38 @@
       "promociones": [
         "volumen"
       ]
+    },
+    {
+      "numero": 45,
+      "lineas": [
+        {
+          "sku": "LANA-03",
+          "cantidad": 2
+        }
+      ],
+      "cupones": [
+        {
+          "codigo": "OTONO10",
+          "tipo": "porcentaje",
+          "valor": 10
+        },
+        {
+          "codigo": "VALE5000",
+          "tipo": "monto",
+          "valor": 5000
+        }
+      ]
+    },
+    {
+      "numero": 46,
+      "lineas": [
+        {
+          "sku": "LIBR-02",
+          "cantidad": 3
+        }
+      ],
+      "region": "extremo",
+      "cliente_nuevo": true
     }
   ]
 }
