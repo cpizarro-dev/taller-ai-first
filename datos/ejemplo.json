@@ -93,7 +93,10 @@
         }
       ],
       "region": "extremo",
-      "cliente_nuevo": true
+      "cliente_nuevo": true,
+      "promociones": [
+        "primera-compra"
+      ]
     }
   ]
 }

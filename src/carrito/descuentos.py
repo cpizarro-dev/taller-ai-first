@@ -33,9 +33,17 @@ def volume_discount(order, amount: int) -> int:
     return porcentaje(amount, 5)
 
 
+def promo_primera_compra(pedido, monto: int) -> int:
+    """15% para el cliente que compra por primera vez."""
+    if not pedido.cliente_nuevo:
+        return 0
+    return porcentaje(monto, 15)
+
+
 PROMOCIONES = {
     "2x1": promo_2x1,
     "volumen": volume_discount,
+    "primera-compra": promo_primera_compra,
 }
 
 

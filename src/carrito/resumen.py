@@ -9,6 +9,7 @@ from carrito.precios import subtotal
 ETIQUETAS = {
     "2x1": "Promoción 2x1",
     "volumen": "Descuento por volumen",
+    "primera-compra": "Primera compra",
 }
 
 
