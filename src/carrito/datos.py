@@ -26,4 +26,5 @@ def cargar():
 
 
 def pedido(numero: int) -> Pedido:
+    """El pedido con ese número. Lanza KeyError si no existe."""
     return cargar()[numero]
