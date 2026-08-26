@@ -18,12 +18,21 @@ def main():
 
     elegido = pedido(args.pedido)
     elegido.promociones = [p for p in elegido.promociones if p not in args.sin]
+    filas = resumen(elegido)
+    ancho_monto = max(len(str(monto)) for monto in filas.values())
+
     if args.detalle:
-        for linea in elegido.lineas:
-            print(linea.producto.nombre, "x", linea.cantidad, precio_linea(linea))
+        precios_linea = [precio_linea(linea) for linea in elegido.lineas]
+        ancho_monto = max(ancho_monto, *(len(str(p)) for p in precios_linea))
+        ancho_nombre = max(len(linea.producto.nombre) for linea in elegido.lineas)
+        for linea, precio in zip(elegido.lineas, precios_linea):
+            nombre = f"{linea.producto.nombre:<{ancho_nombre}}"
+            print(f"{nombre} x {linea.cantidad} {precio:>{ancho_monto}}")
         print("-")
-    for etiqueta, monto in resumen(elegido).items():
-        print(etiqueta, monto)
+
+    ancho_etiqueta = max(len(etiqueta) for etiqueta in filas)
+    for etiqueta, monto in filas.items():
+        print(f"{etiqueta:<{ancho_etiqueta}} {monto:>{ancho_monto}}")
 
 
 if __name__ == "__main__":
