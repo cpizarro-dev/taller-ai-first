@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "defaultMode": "default",
+    "additionalDirectories": []
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'root=\"$(git rev-parse --show-toplevel 2>/dev/null)\"; [ -z \"$root\" ] && exit 0; \"$root/.claude/hooks/commit-conventional.sh\"'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
