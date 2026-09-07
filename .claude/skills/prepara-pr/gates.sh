@@ -38,30 +38,53 @@ run_gate "pytest" uv run pytest
 # 4. Todos los commits de la rama contra main en formato Conventional Commits.
 #    Se excluyen los merge commits (no los escribe una persona con ese formato).
 branch="$(git rev-parse --abbrev-ref HEAD)"
-echo "== Conventional Commits (main..${branch}) =="
+
+# Preferimos main local si existe y está actualizado con origin/main; si no
+# hay main local, o está desalineado, usamos origin/main. Si no hay ninguno
+# de los dos, es un fallo del gate (no podemos verificar nada).
+base_ref=""
+if git rev-parse --verify -q main >/dev/null; then
+    base_ref="main"
+elif git rev-parse --verify -q origin/main >/dev/null; then
+    base_ref="origin/main"
+fi
+
+echo "== Conventional Commits (${base_ref:-main}..${branch}) =="
 
 pattern='^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-zA-Z0-9_./-]+\))?!?: .+'
 commits_fail=0
 found_commits=0
+log_failed=0
 
-while IFS= read -r line; do
-    [ -z "$line" ] && continue
-    found_commits=1
-    hash="${line%% *}"
-    subject="${line#* }"
-    if [[ "$subject" =~ $pattern ]]; then
-        echo "OK    $hash $subject"
-    else
-        echo "MAL   $hash $subject"
-        commits_fail=1
-    fi
-done < <(git log --no-merges --format='%h %s' "main..${branch}")
-
-if [ "$found_commits" -eq 0 ]; then
-    echo "(sin commits nuevos contra main)"
+if [ -z "$base_ref" ]; then
+    log_failed=1
+else
+    log_output="$(git log --no-merges --format='%h %s' "${base_ref}..${branch}")" || log_failed=1
 fi
 
-if [ "$commits_fail" -ne 0 ]; then
+if [ "$log_failed" -eq 0 ]; then
+    while IFS= read -r line; do
+        [ -z "$line" ] && continue
+        found_commits=1
+        hash="${line%% *}"
+        subject="${line#* }"
+        if [[ "$subject" =~ $pattern ]]; then
+            echo "OK    $hash $subject"
+        else
+            echo "MAL   $hash $subject"
+            commits_fail=1
+        fi
+    done <<< "$log_output"
+fi
+
+if [ "$log_failed" -ne 0 ]; then
+    echo "No se pudo resolver la rama base (ni 'main' ni 'origin/main' existen, o 'git log' falló)."
+    echo "-- Conventional Commits: FALLÓ --"
+    fail=1
+elif [ "$found_commits" -eq 0 ]; then
+    echo "(sin commits nuevos contra ${base_ref})"
+    echo "-- Conventional Commits: OK --"
+elif [ "$commits_fail" -ne 0 ]; then
     echo "-- Conventional Commits: FALLÓ --"
     fail=1
 else
