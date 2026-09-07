@@ -37,10 +37,15 @@ run_gate "pytest" uv run pytest
 
 # 4. Todos los commits de la rama contra main en formato Conventional Commits.
 #    Se excluyen los merge commits (no los escribe una persona con ese formato).
-branch="$(git rev-parse --abbrev-ref HEAD)"
+if branch="$(git rev-parse --abbrev-ref HEAD)"; then
+    branch_failed=0
+else
+    branch_failed=1
+    branch="HEAD"
+fi
 
-# Preferimos main local si existe y está actualizado con origin/main; si no
-# hay main local, o está desalineado, usamos origin/main. Si no hay ninguno
+# Preferimos main local si existe (sin comparar si está al día con
+# origin/main); si no hay main local, usamos origin/main. Si no hay ninguno
 # de los dos, es un fallo del gate (no podemos verificar nada).
 base_ref=""
 if git rev-parse --verify -q main >/dev/null; then
@@ -56,7 +61,10 @@ commits_fail=0
 found_commits=0
 log_failed=0
 
-if [ -z "$base_ref" ]; then
+if [ "$branch_failed" -ne 0 ]; then
+    echo "No se pudo resolver la rama actual (HEAD)."
+    log_failed=1
+elif [ -z "$base_ref" ]; then
     log_failed=1
 else
     log_output="$(git log --no-merges --format='%h %s' "${base_ref}..${branch}")" || log_failed=1

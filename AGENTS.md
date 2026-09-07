@@ -15,7 +15,7 @@ uv run python -m carrito total --pedido 42 --detalle       # con desglose línea
 uv run python -m carrito total --pedido 46 --sin primera-compra  # desactivar una promoción
 ```
 
-No hay linter ni formateador configurado en `pyproject.toml`; la única dependencia de dev es `pytest`. CI (`.github/workflows/tests.yml`) corre `uv sync --locked && uv run pytest` en cada push/PR.
+No hay linter ni formateador configurado en `pyproject.toml`; la única dependencia de dev es `pytest`. CI (`.github/workflows/tests.yml`) corre `uv sync --locked && uv run pytest` en cada push/PR. El skill `prepara-pr` (`.claude/skills/prepara-pr/gates.sh`) corre además `ruff check` y `bandit` vía `uvx` antes de abrir un PR, pero son gates locales del flujo de Claude Code, no están en `pyproject.toml` ni en CI.
 
 ## Convenciones
 
